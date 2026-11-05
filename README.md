@@ -1,11 +1,13 @@
 # Focus Assistant
 
-**Experimental macOS focus assistant · Python · Safari and Google Chrome · local inference**
+**Prevents distractions and increase work efficiency. Say goodbye to doomscrolling and procrastination.**
 
-Describe the task you want to focus on. Focus Assistant observes the **single
-active browser page**, classifies it against your task through rules, cached
-decisions and a local OpenAI-compatible model server, then displays a reminder
-or optionally closes a verified distracting tab. No browser extension is needed.
+Describe the task you are working on. Focus Assistant observes the your active browser
+page and uses a local LLM to determine if it's relevant to your task. If a webpage is
+detected as irrelevant, Focus Assistant supports displying warnings or automatically
+closing the webpage identified as irrelevant/distracting. Focus Assistant is designed
+to put a stop to scrolling on social media or short-form videos in the middle of work,
+improving your work efficiency by removing the distractions for you.
 
 Features:
 
@@ -13,14 +15,16 @@ Features:
 - Local domain/keyword rules and task/page/content-sensitive classification cache.
 - Up to three uncertain-result assessments with increasing captured context.
 - Visible correction applications requiring a written reason and LLM approval.
-- **Opt-in, off-by-default** guarded Command-W and conditional recovery through
-  Command-Shift-T after an approved correction.
+- **Opt-in, off-by-default** option to let Focus Assistant automatically close
+  distracting browser tabs as soon as they are detected through pyautogui
+  automated keyboard shortcuts.
 - Native/DOM full-screen exit before reminders, with Space-aware warning panels.
 
 This is a personal focus tool, not a security boundary. Keyboard shortcuts cannot
 atomically lock focus to a tab, LLM decisions can be wrong, and closing a tab may
 lose unsaved data. Read [behavior and safety](docs/BEHAVIOR.md) and
-[verification limits](CHECKS.md) before enabling automatic closing.
+[verification limits](CHECKS.md) before enabling automatic closing. Use at your
+own risk.
 
 ## Requirements
 
