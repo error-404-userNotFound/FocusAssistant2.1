@@ -19,19 +19,28 @@ of work, improving your work efficiency by removing the distractions for you.
 Features:
 
 - Focus sessions with pause/resume, saved reports, timelines and time-range totals.
-- Local domain/keyword rules and task/page/content-sensitive classification cache.
-- Up to three uncertain-result assessments with increasing captured context.
-- Visible correction applications requiring a written reason and LLM approval.
+- Local domain/keyword rules and task/page/content-sensitive classification cache
+  to reduce frequency of heavy LLM computation.
+- LLM views your webpage and classifies webpages as relevant, distracting or uncertain.
+  If result is uncertain, allows three uncertain-result assessments with increasing captured context.
+- If the LLM makes a mistake in classification, allow the option for manual override requiring a
+  written reason subject to LLM approval to prevent misuse.
 - **Opt-in, off-by-default** option to let Focus Assistant automatically close
   distracting browser tabs as soon as they are detected through pyautogui
   automated keyboard shortcuts.
-- Native/DOM full-screen exit before reminders, with Space-aware warning panels.
+- Privacy-first design: Because Focus Assistant needs to read the contents of the webpages you
+  are visiting, privacy and security is a significant issue. Focus Assistant uses local LLMs
+  only to ensure all inference and classification is within your computer, and no data leaves
+  your device.
+- Bring your own LLM: OpenAI-compatible endpoint allows any local LLM to be used, based on
+  your personal preferences. Varying sizes of different local LLMs mean there is no hardware
+  requirement to run Focus Assistant, as long as your chosen model's size is suitable for your
+  computer. Supports Ollama, LM Studio and similar apps.
+  
 
-This is a personal focus tool, not a security boundary. Keyboard shortcuts cannot
-atomically lock focus to a tab, LLM decisions can be wrong, and closing a tab may
-lose unsaved data. Read [behavior and safety](docs/BEHAVIOR.md) and
-[verification limits](CHECKS.md) before enabling automatic closing. Use at your
-own risk.
+Disclaimer: Keyboard shortcuts cannot atomically lock focus to a tab, LLM decisions can be wrong, 
+and closing a tab may lose unsaved data. Read [behavior and safety](docs/BEHAVIOR.md) and
+[verification limits](CHECKS.md) before enabling automatic closing. Use at your own risk.
 
 ## Requirements
 
