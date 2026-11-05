@@ -7,6 +7,11 @@ if [[ ! -x .venv/bin/python ]]; then
 fi
 .venv/bin/python -m pip install --disable-pip-version-check -e '.[build]'
 .venv/bin/python -m PyInstaller --clean --noconfirm --distpath dist --workpath build/app packaging/FocusAssistant.spec
+# Remove only Finder/resource-fork detritus in this generated bundle. Preserve
+# quarantine and other security metadata; never disable Gatekeeper.
+/usr/bin/xattr -dr com.apple.FinderInfo "dist/Focus Assistant.app" 2>/dev/null || true
+/usr/bin/xattr -dr com.apple.ResourceFork "dist/Focus Assistant.app" 2>/dev/null || true
+/usr/bin/codesign --verify --deep --strict "dist/Focus Assistant.app"
 version="$(.venv/bin/python -c 'from focusassistant import __version__; print(__version__)')"
 archive="dist/FocusAssistant-${version}-$(uname -m).zip"
 /usr/bin/ditto -c -k --sequesterRsrc --keepParent "dist/Focus Assistant.app" "$archive"
