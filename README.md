@@ -39,6 +39,29 @@ A system Python or package-manager Python may have a different Tk installation.
 
 ## Download and run from source
 
+### Easier installation: preview app downloads
+
+Download a ZIP from the [2.1.0 preview release](https://github.com/error-404-userNotFound/FocusAssistant2.1/releases/tag/v2.1.0):
+
+| Your Mac | Download |
+|---|---|
+| Apple Silicon (M-series chip) | `FocusAssistant-2.1.0-arm64.zip` |
+| Intel processor | `FocusAssistant-2.1.0-x86_64.zip` |
+
+Extract the ZIP, drag **Focus Assistant.app** into Applications, and open it.
+Python and the app's dependencies are bundled; do **not** run Setup for this
+installation method. You still need a local model server and the permissions
+below. This repository/release is private, so GitHub access is required.
+
+These experimental builds target macOS 15 or later and are ad-hoc signed, **not
+Apple-notarized**. macOS may block the first launch. Inspect the project and use
+Apple's normal approval process only if you trust the download; never disable
+Gatekeeper globally. Older macOS versions are not verified for the preview ZIPs.
+Each ZIP has a companion `.sha256` file; put both in one folder and run
+`shasum -a 256 -c <downloaded-name>.zip.sha256` to verify its checksum.
+
+### Install from the source checkout
+
 Download this repository as a ZIP and extract it, or clone it. Open Terminal in
 the extracted project folder and run:
 
@@ -91,6 +114,69 @@ three valid semantic uncertainty responses.
 
 The main app must keep running. Closing its main window ends the session and
 quits. It is not an always-on background service.
+
+## Connect a local model: LM Studio or Ollama
+
+Focus Assistant uses **OpenAI-compatible** `/v1/models` and
+`/v1/chat/completions` endpoints. It does not require an OpenAI account or a cloud
+API key, and it rejects non-loopback server addresses.
+
+| Local server | Base URL in Settings | Model field |
+|---|---|---|
+| LM Studio | `http://127.0.0.1:1234/v1` | Select the exact ID returned by Check connection |
+| Ollama | `http://127.0.0.1:11434/v1` | For example `llama3.2:3b` after downloading it |
+
+### LM Studio: graphical setup
+
+1. Install [LM Studio](https://lmstudio.ai/) and download a text instruction/chat
+   model suited to your Mac's RAM. A small quantized model is a practical starting
+   point; no particular size or model has a claimed accuracy guarantee here.
+2. Load the model and start its local server from the Developer section. Keep
+   the server on loopback rather than exposing it to the network.
+3. Enter `http://127.0.0.1:1234/v1` in Focus Assistant, click **Check connection**,
+   choose the returned model ID, and **Save settings**.
+4. If the server requires an API token, this version cannot supply one. Use a
+   server configuration suitable for an unauthenticated loopback client, or use
+   another supported local server. Do not paste credentials into a URL.
+
+See [LM Studio's local-server documentation](https://lmstudio.ai/docs/developer/core/server)
+and [OpenAI-compatible API documentation](https://lmstudio.ai/docs/developer/openai-compat).
+
+### Ollama: a short CLI setup
+
+Install [Ollama](https://ollama.com/download/mac) and launch the Ollama app, or
+start its server with `ollama serve` if you are using the CLI without a running
+server. Do not start a second server if the app is already serving port 11434.
+Download a local text model, for example:
+
+```sh
+ollama pull llama3.2:3b
+```
+
+In Focus Assistant, enter `http://127.0.0.1:11434/v1`, check the connection, select
+`llama3.2:3b`, and save. Use the `/v1` OpenAI-compatible endpoint, not Ollama's
+separate `/api/chat` endpoint. The [Llama 3.2 model page](https://ollama.com/library/llama3.2)
+lists available sizes; this example is a setup starting point, not an accuracy
+endorsement. See [Ollama's OpenAI compatibility guide](https://docs.ollama.com/api/openai-compatibility).
+
+### Model settings and troubleshooting
+
+- Connection refused: start the server and check the port/base URL, including `/v1`.
+- Empty model list: download/load a model; select its exact ID rather than an
+  assumed display name. Other servers must implement both endpoints above.
+- First request times out: a model may still be loading. Warm it in the server
+  and retry. Requests have bounded timeouts and remain uncertain on failure.
+- Truncated/malformed JSON: use an instruction model that follows JSON requests;
+  disable lengthy reasoning/thinking in the server when necessary. The app allows
+  2,048 response tokens, including reasoning counted by some servers.
+- Later retries exceed context: configure sufficient context for up to 24,000
+  page-text characters plus the task/instructions, or choose a suitable model.
+- Use locally downloaded models for local inference. A local service that routes
+  a cloud model remotely changes the privacy properties; that is controlled by
+  the server, not prevented merely by a loopback connection.
+
+Both server protocols are supported, but the regression HTTP fixtures do not
+establish real-model accuracy or guarantee every model/server combination.
 
 ## Data and privacy
 

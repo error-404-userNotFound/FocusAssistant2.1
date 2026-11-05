@@ -10,6 +10,8 @@
   development copy.
 - Add macOS app-bundle packaging with browser resources and permission usage text,
   plus native Apple Silicon/Intel CI matrices and manual app-build artifacts.
+- Document LM Studio and Ollama connection setup, local model selection and
+  troubleshooting. Prepare separate architecture-specific preview release ZIPs.
 - Retain opt-in guarded close/recovery, Space-aware reminders, local-model
   approval for visible correction requests and three-pass uncertain assessment.
 

@@ -19,6 +19,12 @@ browser permissions are still required. The CPU architecture and minimum OS
 compatibility follow the interpreter/frameworks used to build it. Build/test on
 both Apple Silicon and Intel rather than renaming an arm64 artifact as universal.
 
+The build removes only signing-prohibited FinderInfo/ResourceFork metadata from
+the generated app, excludes extended metadata from the ZIP, and strictly verifies
+the signature after extracting that ZIP into a temporary directory. This verifies
+the delivered artifact rather than just the build folder. It does not disable
+Gatekeeper or alter quarantine settings on downloaded apps.
+
 The manual GitHub build workflow uses native `macos-15` and `macos-15-intel`
 runners. It uploads private Actions artifacts, not public Releases. Building on
 macOS 15 does not establish compatibility with every older OS. Declare and test

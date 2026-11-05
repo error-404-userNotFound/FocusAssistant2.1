@@ -159,7 +159,7 @@ class App:
 
     def build_settings(self):
         self.text(self.settings_tab, "Settings", style="Title.TLabel")
-        frame = self.card(self.settings_tab, "Local LM Studio server")
+        frame = self.card(self.settings_tab, "Local model server (LM Studio / Ollama)")
         self.setting_vars = {name: (tk.BooleanVar if isinstance(getattr(self.controller.state.settings, name), bool) else tk.StringVar)(
             value=getattr(self.controller.state.settings, name)) for name in Settings.__dataclass_fields__}
         self.setting_entry(frame, "Server address", "base_url")
@@ -172,7 +172,7 @@ class App:
             lambda: self.controller.check_connection(self.setting_vars["base_url"].get())))
         self.check_button.pack(side="left", padx=(8, 0))
         self.settings_connection = self.text(frame, "Connection not checked", style="Muted.TLabel")
-        self.text(frame, "Start LM Studio’s local server and load a model. Only loopback addresses are accepted.", style="Muted.TLabel")
+        self.text(frame, "Start LM Studio, Ollama or another local OpenAI-compatible server and load a model. Only loopback addresses are accepted.", style="Muted.TLabel")
         rules = self.card(self.settings_tab, "Simple classification rules")
         for label, key in (("Relevant domains", "relevant_domains"), ("Distracting domains", "distracting_domains"),
                            ("Relevant keywords", "relevant_keywords"), ("Distracting keywords", "distracting_keywords")):

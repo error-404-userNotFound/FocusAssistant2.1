@@ -15,6 +15,10 @@ did not read pages, request permissions or send input. This is an ad-hoc build,
 not a notarized release. Intel execution and live interventions are not covered
 by that local arm64 result.
 
+The arm64 ZIP was also extracted into a temporary directory and passed strict,
+deep ad-hoc signature verification. The build recipe now requires that check and
+excludes Finder/resource metadata that could invalidate a downloaded bundle.
+
 ```sh
 /bin/zsh Setup.command
 .venv/bin/python -m unittest discover -s tests -v
