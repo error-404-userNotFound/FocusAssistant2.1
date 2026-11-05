@@ -123,14 +123,22 @@ API key, and it rejects non-loopback server addresses.
 
 | Local server | Base URL in Settings | Model field |
 |---|---|---|
-| LM Studio | `http://127.0.0.1:1234/v1` | Select the exact ID returned by Check connection |
-| Ollama | `http://127.0.0.1:11434/v1` | For example `llama3.2:3b` after downloading it |
+| LM Studio | `http://127.0.0.1:1234/v1` | Load **Qwen 3.5 4B** or **Gemma 4 E4B**, then select the exact ID returned by Check connection |
+| Ollama | `http://127.0.0.1:11434/v1` | **`qwen3.5:4b`** or **`gemma4:e4b`** after downloading the chosen model |
+
+**Recommended starting models for either server: Qwen 3.5 4B or Gemma 4 E4B.**
+Choose a quantization that fits your Mac's memory and leave room for context and
+other applications. These recommendations are starting points; the project does
+not claim a measured classification accuracy for either model.
 
 ### LM Studio: graphical setup
 
-1. Install [LM Studio](https://lmstudio.ai/) and download a text instruction/chat
-   model suited to your Mac's RAM. A small quantized model is a practical starting
-   point; no particular size or model has a claimed accuracy guarantee here.
+1. Install [LM Studio](https://lmstudio.ai/). In its model discovery/search,
+   look for **Qwen 3.5 4B** (`Qwen3.5-4B`) or
+   **[Gemma 4 E4B](https://lmstudio.ai/models/google/gemma-4-e4b)**
+   (`gemma-4-e4b`). Download a supported quantized version that fits your Mac's
+   RAM. Use the exact loaded model ID shown by the server rather than assuming
+   the display name is its API identifier.
 2. Load the model and start its local server from the Developer section. Keep
    the server on loopback rather than exposing it to the network.
 3. Enter `http://127.0.0.1:1234/v1` in Focus Assistant, click **Check connection**,
@@ -147,17 +155,22 @@ and [OpenAI-compatible API documentation](https://lmstudio.ai/docs/developer/ope
 Install [Ollama](https://ollama.com/download/mac) and launch the Ollama app, or
 start its server with `ollama serve` if you are using the CLI without a running
 server. Do not start a second server if the app is already serving port 11434.
-Download a local text model, for example:
+Download either recommended model; choose one of these commands:
 
 ```sh
-ollama pull llama3.2:3b
+# Qwen 3.5 4B
+ollama pull qwen3.5:4b
+
+# Or Gemma 4 E4B
+ollama pull gemma4:e4b
 ```
 
 In Focus Assistant, enter `http://127.0.0.1:11434/v1`, check the connection, select
-`llama3.2:3b`, and save. Use the `/v1` OpenAI-compatible endpoint, not Ollama's
-separate `/api/chat` endpoint. The [Llama 3.2 model page](https://ollama.com/library/llama3.2)
-lists available sizes; this example is a setup starting point, not an accuracy
-endorsement. See [Ollama's OpenAI compatibility guide](https://docs.ollama.com/api/openai-compatibility).
+the model you downloaded—`qwen3.5:4b` or `gemma4:e4b`—and save. Use the `/v1`
+OpenAI-compatible endpoint, not Ollama's separate `/api/chat` endpoint.
+See the official [Qwen 3.5 4B](https://ollama.com/library/qwen3.5:4b) and
+[Gemma 4 E4B](https://ollama.com/library/gemma4:e4b) model pages, and
+[Ollama's OpenAI compatibility guide](https://docs.ollama.com/api/openai-compatibility).
 
 ### Model settings and troubleshooting
 
