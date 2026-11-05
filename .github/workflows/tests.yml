@@ -1,0 +1,32 @@
+name: Tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  macos:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel]
+        python: ['3.11', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -e .
+      - run: python -m pip check
+      - run: python -m unittest discover -s tests -v
+      - run: node tests/extraction_checks.cjs
+      - run: python -m focusassistant --version
+      - run: python -m pip install build && python -m build
+      - name: Verify wheel contains browser resources
+        run: python scripts/check_wheel.py
