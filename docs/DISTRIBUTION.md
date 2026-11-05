@@ -25,6 +25,12 @@ the signature after extracting that ZIP into a temporary directory. This verifie
 the delivered artifact rather than just the build folder. It does not disable
 Gatekeeper or alter quarantine settings on downloaded apps.
 
+Signing and archive creation run in a temporary staging directory, away from
+Finder-synced source folders. The bundle includes a `Licenses` resource directory
+with the project's license, Python/Tcl/Tk notices, runtime dependency notices and
+the PyInstaller bootloader license/exception. Unused MouseInfo, screenshot,
+clipboard and popup helper modules are excluded from the keyboard-only binary.
+
 The manual GitHub build workflow uses native `macos-15` and `macos-15-intel`
 runners. It uploads private Actions artifacts, not public Releases. Building on
 macOS 15 does not establish compatibility with every older OS. Declare and test

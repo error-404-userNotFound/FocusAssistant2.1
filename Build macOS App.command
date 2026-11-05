@@ -10,6 +10,8 @@ fi
 # live here; cleanup never touches a user's downloaded app or system settings.
 build_root="$(mktemp -d "${TMPDIR:-/tmp}/focusassistant-build.XXXXXX")"
 trap '/bin/rm -rf -- "$build_root"' EXIT
+.venv/bin/python scripts/collect_licenses.py "$build_root/licenses"
+export FOCUSASSISTANT_LICENSE_DIR="$build_root/licenses"
 .venv/bin/python -m PyInstaller --clean --noconfirm --distpath "$build_root/dist" --workpath "$build_root/work" packaging/FocusAssistant.spec
 app="$build_root/dist/Focus Assistant.app"
 /usr/bin/xattr -dr com.apple.FinderInfo "$app" 2>/dev/null || true
@@ -25,6 +27,7 @@ fi
 version="$(.venv/bin/python -c 'from focusassistant import __version__; print(__version__)')"
 archive_file="FocusAssistant-${version}-$(uname -m).zip"
 /usr/bin/ditto -c -k --norsrc --noextattr --keepParent "$app" "$build_root/$archive_file"
+.venv/bin/python scripts/check_release_archive.py "$build_root/$archive_file"
 /usr/bin/ditto -x -k --noextattr "$build_root/$archive_file" "$build_root/extracted"
 /usr/bin/codesign --verify --deep --strict "$build_root/extracted/Focus Assistant.app"
 # Verify dependency imports from the exact extracted release artifact. No UI,

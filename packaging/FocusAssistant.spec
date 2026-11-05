@@ -9,11 +9,14 @@ analysis = Analysis(
     [str(project / "run.py")],
     pathex=[str(project)],
     binaries=[],
-    datas=[(str(path), "focusassistant") for path in (project / "focusassistant").glob("*.js")],
+    datas=[(str(path), "focusassistant") for path in (project / "focusassistant").glob("*.js")]
+          + [(os.environ["FOCUSASSISTANT_LICENSE_DIR"], "Licenses")],
     hiddenimports=["AppKit", "ApplicationServices", "Quartz", "pyautogui", "pyautogui._pyautogui_osx",
                    "tkinter", "tkinter.ttk", "tkinter.messagebox"],
     hookspath=[],
-    excludes=["tests", "pytest"],
+    # Keyboard-only use: do not redistribute unused popup, screenshot, clipboard
+    # or MouseInfo helpers. PyAutoGUI supports their absence through ImportError.
+    excludes=["tests", "pytest", "mouseinfo", "pygetwindow", "pyrect", "pyscreeze", "pymsgbox", "PIL", "rubicon", "pyperclip"],
     noarchive=False,
 )
 pyz = PYZ(analysis.pure)

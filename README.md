@@ -37,7 +37,7 @@ The [python.org macOS installers](https://www.python.org/downloads/macos/) inclu
 Tk; see [Python's macOS/Tk guidance](https://www.python.org/download/mac/tcltk/).
 A system Python or package-manager Python may have a different Tk installation.
 
-## Download and run from source
+## Installation
 
 ### Easier installation: preview app downloads
 

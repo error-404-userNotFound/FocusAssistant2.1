@@ -1,6 +1,6 @@
 include LICENSE README.md CHANGELOG.md SECURITY.md PRIVACY.md CONTRIBUTING.md CHECKS.md
 include *.command
-recursive-include packaging *.spec *.plist
+recursive-include packaging *.spec *.plist *.txt
 recursive-include scripts *.py
 recursive-include tests *.py *.cjs
 recursive-include focusassistant *.js
