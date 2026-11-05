@@ -3,11 +3,18 @@
 **Prevents distractions and increase work efficiency. Say goodbye to doomscrolling and procrastination.**
 
 Describe the task you are working on. Focus Assistant observes the your active browser
-page and uses a local LLM to determine if it's relevant to your task. If a webpage is
-detected as irrelevant, Focus Assistant supports displying warnings or automatically
-closing the webpage identified as irrelevant/distracting. Focus Assistant is designed
-to put a stop to scrolling on social media or short-form videos in the middle of work,
-improving your work efficiency by removing the distractions for you.
+page and uses a local LLM to determine if it's relevant to your task. Unlike traditional
+whitelist/blacklist based solutions, an LLM-based solution allows for decisions to be
+contextual rather than absolute. 
+
+For example, an Youtube video of a lecture recording can be relevant to exam preperation,
+but a gaming video isn't. Blacklisting the youtube.com domain entirely would reduce your
+options.
+
+If a webpage is detected as irrelevant, Focus Assistant supports displaying warnings or 
+automatically closing the webpage identified as irrelevant/distracting. Focus Assistant 
+is designed to put a stop to scrolling on social media or short-form videos in the middle
+of work, improving your work efficiency by removing the distractions for you.
 
 Features:
 
