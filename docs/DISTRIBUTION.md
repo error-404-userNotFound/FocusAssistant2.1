@@ -32,7 +32,7 @@ the PyInstaller bootloader license/exception. Unused MouseInfo, screenshot,
 clipboard and popup helper modules are excluded from the keyboard-only binary.
 
 The manual GitHub build workflow uses native `macos-15` and `macos-15-intel`
-runners. It uploads private Actions artifacts, not public Releases. Building on
+runners. Build outputs are available as GitHub Actions artifacts. Building on
 macOS 15 does not establish compatibility with every older OS. Declare and test
 a minimum OS before distributing a release to users of older Macs.
 

@@ -71,7 +71,7 @@ Download a ZIP from the [2.1.0 preview release](https://github.com/error-404-use
 Extract the ZIP, drag **Focus Assistant.app** into Applications, and open it.
 Python and the app's dependencies are bundled; do **not** run Setup for this
 installation method. You still need a local model server and the permissions
-below. This repository/release is private, so GitHub access is required.
+below.
 
 These experimental builds target macOS 15 or later and are ad-hoc signed, **not
 Apple-notarized**. macOS may block the first launch. Inspect the project and use
@@ -276,5 +276,4 @@ Architecture and the detailed correction/recovery safeguards are documented in
 
 [MIT](LICENSE). Third-party Python packages and model weights retain their own
 licenses. This repository does not include model weights or redistribute a local
-model server. Repository visibility is independent of the source license; a
-private repository is accessible only to people you authorize.
+model server.
