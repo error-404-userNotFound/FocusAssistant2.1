@@ -1,46 +1,82 @@
 # Focus Assistant
 
-**Prevents distractions and increase work efficiency. Say goodbye to doomscrolling and procrastination.**
+**Close distracting tabs. Keep your task in view.**
 
-Describe the task you are working on. Focus Assistant observes the your active browser
-page and uses a local LLM to determine if it's relevant to your task. Unlike traditional
-whitelist/blacklist based solutions, an LLM-based solution allows for decisions to be
-contextual rather than absolute. 
+https://github.com/user-attachments/assets/73dd71d9-f30a-4e41-a2d8-06ef686cce64
 
-For example, an Youtube video of a lecture recording can be relevant to exam preperation,
-but a gaming video isn't. Blacklisting the youtube.com domain entirely would reduce your
-options.
+[Animated preview](docs/media/focus-assistant-demo.gif) · [Download the captioned MP4](https://github.com/error-404-userNotFound/FocusAssistant2.1/raw/refs/heads/main/docs/media/focus-assistant-demo.mp4) · [Install Focus Assistant for macOS](#installation)
 
-If a webpage is detected as irrelevant, Focus Assistant supports displaying warnings or 
-automatically closing the webpage identified as irrelevant/distracting. Focus Assistant 
-is designed to put a stop to scrolling on social media or short-form videos in the middle
-of work, improving your work efficiency by removing the distractions for you.
+Focus Assistant is an extension-free macOS app for **Safari and Chrome**. Set a
+goal for your session and let a local model classify the active browser tab as
+relevant, distracting, or uncertain. With auto-close enabled, the app sends
+**⌘W** after rechecking that the same classified tab is still active and focused.
+Once it verifies the close, it shows a dismissible notice naming the tab and
+explaining the classification.
 
-Features:
+## See the features in action
 
-- Focus sessions with pause/resume, saved reports, timelines and time-range totals.
-- Local domain/keyword rules and task/page/content-sensitive classification cache
-  to reduce frequency of heavy LLM computation.
-- LLM views your webpage and classifies webpages as relevant, distracting or uncertain.
-  If result is uncertain, allows three uncertain-result assessments with increasing captured context.
-- If the LLM makes a mistake in classification, allow the option for manual override requiring a
-  written reason subject to LLM approval to prevent misuse.
-- **Opt-in, off-by-default** option to let Focus Assistant automatically close
-  distracting browser tabs as soon as they are detected through pyautogui
-  automated keyboard shortcuts.
-- Privacy-first design: Because Focus Assistant needs to read the contents of the webpages you
-  are visiting, privacy and security is a significant issue. Focus Assistant uses local LLMs
-  only to ensure all inference and classification is within your computer, and no data leaves
-  your device.
-- Bring your own LLM: OpenAI-compatible endpoint allows any local LLM to be used, based on
-  your personal preferences. Varying sizes of different local LLMs mean there is no hardware
-  requirement to run Focus Assistant, as long as your chosen model's size is suitable for your
-  computer. Supports Ollama, LM Studio and similar apps.
-  
+<table>
+<tr>
+<td width="42%"><strong>Set a goal for your session</strong><br>Describe what you’re working on, such as “Explain how photosynthesis works.” Pause or resume whenever you need to.</td>
+<td width="58%"><a href="docs/media/start-a-focus-session.jpg"><img src="docs/media/start-a-focus-session.jpg" alt="Demo frame showing the sample photosynthesis goal in the Focus session form"></a></td>
+</tr>
+<tr>
+<td><strong>Choose how the app responds</strong><br>Auto-close is off by default. Enable it in Settings to close distracting tabs during a focus session.</td>
+<td><a href="docs/media/choose-a-response.jpg"><img src="docs/media/choose-a-response.jpg" alt="Demo frame showing the opt-in automatic tab closing checkbox in Settings"></a></td>
+</tr>
+<tr>
+<td><strong>Close the verified active tab</strong><br>In the demo, the app closes the loaded 2048 game and a Lichess puzzle with ⌘W. The Photosynthesis tab stays open.</td>
+<td><a href="docs/media/close-2048.jpg"><img src="docs/media/close-2048.jpg" alt="Demo frame marking the loaded 2048 board as distracting"></a><br><a href="docs/media/close-lichess.jpg"><img src="docs/media/close-lichess.jpg" alt="Demo frame marking Lichess Puzzles as distracting for a photosynthesis task"></a></td>
+</tr>
+<tr>
+<td><strong>See what closed and why</strong><br>Once a tab close is verified, the desktop notice names the tab and shows the model’s reason. Dismiss it or request a correction directly from the notice.</td>
+<td><a href="docs/media/auto-close-notice.jpg"><img src="docs/media/auto-close-notice.jpg" alt="Demo frame showing the 2048 tab-close confirmation beside Chrome and the live dashboard"></a></td>
+</tr>
+<tr>
+<td><strong>Judge the page against your task</strong><br>Apollo 11 is unrelated to photosynthesis. Reading an unrelated article can still reduce productivity, even when it’s educational. In the demo, the local model marks the Photosynthesis article as relevant and Apollo 11 as distracting.</td>
+<td><a href="docs/media/classify-by-task.jpg"><img src="docs/media/classify-by-task.jpg" alt="Demo frame explaining why the Wikipedia article on Apollo 11 is distracting for a photosynthesis task"></a></td>
+</tr>
+<tr>
+<td><strong>Keep the tab open with a reminder</strong><br>With auto-close off, a dismissible reminder appears. If the verified distracting tab is in full screen, the app exits full screen before showing the reminder.</td>
+<td><a href="docs/media/desktop-reminder.jpg"><img src="docs/media/desktop-reminder.jpg" alt="Demo frame showing the reminder while the Apollo 11 tab stays open"></a></td>
+</tr>
+<tr>
+<td><strong>Review how you spent your time</strong><br>See session totals by classification, filter a time range, and inspect the timeline of browser and application activity.</td>
+<td><a href="docs/media/review-a-session.jpg"><img src="docs/media/review-a-session.jpg" alt="Demo frame showing the report for an illustrative focus session"></a></td>
+</tr>
+</table>
 
-Disclaimer: Keyboard shortcuts cannot atomically lock focus to a tab, LLM decisions can be wrong, 
-and closing a tab may lose unsaved data. Read [behavior and safety](docs/BEHAVIOR.md) and
-[verification limits](CHECKS.md) before enabling automatic closing. Use at your own risk.
+The app also supports local domain and keyword rules, caches task-specific
+decisions, and retries uncertain model responses up to three times with more
+context. To request a correction, submit a written explanation for the local
+model to review.
+
+<details>
+<summary>Recording details and credits</summary>
+
+The demo uses a sample task, a temporary signed-out Chrome profile, and Qwen 3.5
+4B running locally through LM Studio. Focus Assistant’s classifier and guarded
+⌘W action ran on the live pages. The recording harness used Chrome DevTools to
+limit page observation and tab verification to that profile. The installed app
+uses macOS Apple Events for browser access. Chrome, the live dashboard and the
+desktop notices were captured separately and arranged side by side. Timing was
+edited, and the report uses illustrative session data.
+
+Pages shown include [2048](https://play2048.co/), [Lichess Puzzles](https://lichess.org/training),
+[Photosynthesis](https://en.wikipedia.org/wiki/Photosynthesis), and
+[Apollo 11](https://en.wikipedia.org/wiki/Apollo_11). Wikipedia excerpts and
+the [photosynthesis diagram by At09kg, Wattcle, and Nefronus](https://commons.wikimedia.org/wiki/File:Photosynthesis_en.svg)
+appear in cropped, captioned screen recordings under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+The [Apollo 11 photograph](https://commons.wikimedia.org/wiki/File:Buzz_Aldrin_by_Neil_Armstrong.jpg)
+is by Neil Armstrong for NASA.
+
+</details>
+
+Keyboard shortcuts cannot atomically lock focus to a tab. Model decisions can
+be wrong, and closing a tab may lose unsaved data. Read
+[behavior and safety](docs/BEHAVIOR.md) and [verification limits](CHECKS.md) before
+enabling automatic closing.
 
 ## Requirements
 
@@ -60,6 +96,9 @@ A system Python or package-manager Python may have a different Tk installation.
 ## Installation
 
 ### Easier installation: preview app downloads
+
+The current source includes the verified-close desktop notice shown in the demo.
+To use that feature now, follow the [source installation steps](#install-from-the-source-checkout).
 
 Download a ZIP from the [2.1.0 preview release](https://github.com/error-404-userNotFound/FocusAssistant2.1/releases/tag/v2.1.0):
 
