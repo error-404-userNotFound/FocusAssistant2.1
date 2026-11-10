@@ -11,6 +11,11 @@ active tab; if it is the last tab, the browser may close its window. This may
 lose unsaved page data. Browser save/leave dialogs are not automatically accepted,
 and an unverified close is not repeatedly attempted.
 
+After verifying the expected tab closed, the app shows a dismissible desktop
+notice naming the tab and explaining its classification. You can request a
+correction from the notice. It can remain visible after the active tab changes,
+and it hides when the session is paused or ended.
+
 Before dispatch, the app checks:
 
 1. The same session remains active and unpaused, with an unrevoked action lease.

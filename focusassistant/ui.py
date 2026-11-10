@@ -182,7 +182,7 @@ class App:
         ttk.Checkbutton(behavior, text="Automatically close the verified active distracting tab (⌘W)",
                         variable=self.setting_vars["auto_close"]).pack(anchor="w", pady=(0, 8))
         self.text(behavior, "Off by default. Closing requires PyAutoGUI, Accessibility access, and a verified document identity. JavaScript from Apple Events must be enabled in either browser for automatic closing. A close may lose unsaved page data.")
-        self.text(behavior, "With auto-close off, a distracting full-screen browser is taken out of full screen before its desktop reminder appears. Only the focused classified page may trigger this.", style="Muted.TLabel")
+        self.text(behavior, "A verified auto-close shows a dismissible notice. With auto-close off, a distracting full-screen browser exits full screen before its desktop reminder appears. Only the focused classified page may trigger a response.", style="Muted.TLabel")
         ttk.Button(self.settings_tab, text="Save settings", command=lambda: self.call(self.save_settings)).pack(anchor="w", pady=(0, 16))
         access = self.card(self.settings_tab, "Browser access · no extension required")
         self.text(access, "macOS may ask the app launching Python for permission to control Safari and Google Chrome. Allow those browser Automation requests to read active pages.")
@@ -411,7 +411,7 @@ class App:
 
     def render_warning(self):
         event = self.controller.warning_event()
-        signature = (event.id, event.label, event.reason, event.intervention) if event else None
+        signature = (event.id, event.label, event.reason, event.intervention, event.closed_at) if event else None
         if signature is None or signature in self.dismissed:
             self.hide_warning()
             return
@@ -431,8 +431,12 @@ class App:
         warning.attributes("-topmost", True)
         frame = ttk.Frame(warning, padding=18)
         frame.pack(fill="both", expand=True)
-        ttk.Label(frame, text="Return to your task?", style="Heading.TLabel").pack(anchor="w", pady=(0, 8))
-        ttk.Label(frame, text=event.intervention, wraplength=360).pack(anchor="w", pady=(0, 8))
+        heading, message = "Return to your task?", event.intervention
+        if event.closed_at is not None:
+            heading = "Distracting tab closed"
+            message = f"{event.title} was closed automatically with ⌘W.\n\n{message}"
+        ttk.Label(frame, text=heading, style="Heading.TLabel").pack(anchor="w", pady=(0, 8))
+        ttk.Label(frame, text=message, wraplength=360).pack(anchor="w", pady=(0, 8))
         ttk.Label(frame, text=event.reason, wraplength=360, foreground=COLORS["distracting"]).pack(anchor="w", pady=(0, 10))
         row = ttk.Frame(frame)
         row.pack(fill="x")

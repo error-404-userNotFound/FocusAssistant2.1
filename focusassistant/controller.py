@@ -368,12 +368,19 @@ class Controller:
 
     def warning_event(self, now=None):
         now = time.time() if now is None else now
-        session, event = self.state.current, self.event(self.current_event_id)
-        if (session and not session.paused and event and event.label == "distracting" and event.intervention
+        session = self.state.current
+        if not session or session.paused:
+            return None
+        event = self.event(self.current_event_id)
+        if (event and event.label == "distracting" and event.intervention
                 and not event.closed_at and (not self.actions or event.id in self.warning_ready)
                 and self.snapshot and now - self.snapshot.observed_at < 4
                 and self.frontmost_bundle == event.bundle):
             return event
+        closed = self.event(self.close_receipt.event_id) if self.close_receipt else None
+        if (closed and closed.session_id == session.id and closed.closed_at is not None
+                and closed.label == "distracting" and closed.intervention):
+            return closed
         return None
 
     def tick_actions(self):

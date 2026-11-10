@@ -1,3 +1,4 @@
+from concurrent.futures import Future
 from dataclasses import replace
 import json
 import tempfile
@@ -217,6 +218,26 @@ class CorrectionTests(unittest.TestCase):
         self.app.finish_review(OverrideVerdict(True,"Task evidence supports correction"))
         self.app.restore_future.result(timeout=2)
         self.assertEqual(calls,[(self.event.id,True)])
+
+    def test_close_notice_requires_a_receipt_and_survives_a_focus_change(self):
+        self.app.action_event_id = self.event.id
+        self.app.action_future = Future()
+        self.app.action_future.set_result(ActionResult("Unverified close", close_sent=True))
+        self.app.tick_actions()
+        self.app.observe(Snapshot("notes", "Notes", observed_at=103))
+        self.assertIsNone(self.app.warning_event(now=103))
+
+        receipt = CloseReceipt(self.event.id, self.page, [], self.page, time.monotonic())
+        self.app.action_future = Future()
+        self.app.action_future.set_result(ActionResult("Verified close", receipt=receipt, close_sent=True))
+        self.app.tick_actions()
+        self.assertIs(self.app.warning_event(now=104), self.event)
+
+        self.app.pause(now=105)
+        self.assertIsNone(self.app.warning_event(now=105))
+        self.app.pause(now=106)
+        self.app._apply_override(self.event.id, "relevant", now=106)
+        self.assertIsNone(self.app.warning_event(now=106))
 
 
 if __name__=="__main__":
