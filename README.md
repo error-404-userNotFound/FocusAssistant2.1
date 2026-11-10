@@ -2,7 +2,7 @@
 
 A macOS app that helps you stay on task in Safari and Chrome without a browser extension. Tell it what you’re working on. A local model checks whether the active tab helps with that task, and you can turn on auto-close for distractions.
 
-https://github.com/user-attachments/assets/af2fc203-7ba7-4fd7-a7e8-7b1b24585ab8
+https://github.com/user-attachments/assets/82177a34-d844-45c0-9e09-e7a3c0d61d77
 
 [Download the macOS preview](https://github.com/error-404-userNotFound/FocusAssistant2.1/releases/tag/v2.1.0) or [view the animated demo](docs/media/focus-assistant-demo.gif).
 
@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/af2fc203-7ba7-4fd7-a7e8-7b1b24585ab8
 
 <table>
 <tr>
-<td width="46%"><strong>Context-dependent classification</strong><br>Say you’re studying photosynthesis. One Wikipedia article explains exactly what you need. Another takes you down an Apollo 11 rabbit hole. Both are useful articles, but reading the second takes time away from your work. A fixed allowlist or blocklist makes the same call when your task changes. Focus Assistant checks each page against what you’re doing right now.</td>
+<td width="46%"><strong>Context-dependent classification</strong><br>Say you’re studying photosynthesis. One Wikipedia article explains exactly what you need. Another takes you down an Apollo 11 rabbit hole. A fixed allowlist or blocklist makes the same call when your task changes. In the demo, Focus Assistant keeps the article you need open and closes Apollo 11 because it’s off task.</td>
 <td width="54%"><a href="docs/media/classify-by-task.jpg"><img src="docs/media/classify-by-task.jpg" alt="The Apollo 11 article is flagged as distracting during a photosynthesis task"></a></td>
 </tr>
 <tr>
@@ -44,7 +44,7 @@ Closing a tab can lose unsaved work. [Behavior and safety notes](docs/BEHAVIOR.m
 <details>
 <summary>About the demo</summary>
 
-The video shows live classification with Qwen 3.5 4B and the app’s guarded keyboard action. Chrome DevTools kept the recording confined to a temporary signed-out profile. The installed app uses Apple Events. The windows were captured separately, the red X was added in editing, and the report uses sample data.
+The video shows live classification with Qwen 3.5 4B and the app’s guarded keyboard action. The Apollo 11 auto-close take shows the recorded model result beside the browser. Chrome DevTools kept the recording confined to a temporary signed-out profile. The installed app uses Apple Events. The red X was added in editing, and the report uses sample data.
 
 Pages shown include [2048](https://play2048.co/), [Lichess Puzzles](https://lichess.org/training), [Photosynthesis](https://en.wikipedia.org/wiki/Photosynthesis), and [Apollo 11](https://en.wikipedia.org/wiki/Apollo_11). Wikipedia excerpts and the [photosynthesis diagram by At09kg, Wattcle, and Nefronus](https://commons.wikimedia.org/wiki/File:Photosynthesis_en.svg) appear in cropped, captioned recordings under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The [Apollo 11 photograph](https://commons.wikimedia.org/wiki/File:Buzz_Aldrin_by_Neil_Armstrong.jpg) is by Neil Armstrong for NASA.
 
