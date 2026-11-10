@@ -2,7 +2,7 @@
 
 A macOS app that helps you stay on task in Safari and Chrome without a browser extension. Tell it what you’re working on. A local model checks whether the active tab helps with that task, and you can turn on auto-close for distractions.
 
-https://github.com/user-attachments/assets/902fb29e-66e5-4c64-bf41-6b4726be6063
+https://github.com/user-attachments/assets/af2fc203-7ba7-4fd7-a7e8-7b1b24585ab8
 
 [Download the macOS preview](https://github.com/error-404-userNotFound/FocusAssistant2.1/releases/tag/v2.1.0) or [view the animated demo](docs/media/focus-assistant-demo.gif).
 
@@ -44,7 +44,7 @@ Closing a tab can lose unsaved work. [Behavior and safety notes](docs/BEHAVIOR.m
 <details>
 <summary>About the demo</summary>
 
-The video shows live classification with Qwen 3.5 4B and the app’s guarded keyboard action. Chrome DevTools kept the recording confined to a temporary signed-out profile. The installed app uses Apple Events. The windows were captured separately, and the report uses sample data.
+The video shows live classification with Qwen 3.5 4B and the app’s guarded keyboard action. Chrome DevTools kept the recording confined to a temporary signed-out profile. The installed app uses Apple Events. The windows were captured separately, the red X was added in editing, and the report uses sample data.
 
 Pages shown include [2048](https://play2048.co/), [Lichess Puzzles](https://lichess.org/training), [Photosynthesis](https://en.wikipedia.org/wiki/Photosynthesis), and [Apollo 11](https://en.wikipedia.org/wiki/Apollo_11). Wikipedia excerpts and the [photosynthesis diagram by At09kg, Wattcle, and Nefronus](https://commons.wikimedia.org/wiki/File:Photosynthesis_en.svg) appear in cropped, captioned recordings under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The [Apollo 11 photograph](https://commons.wikimedia.org/wiki/File:Buzz_Aldrin_by_Neil_Armstrong.jpg) is by Neil Armstrong for NASA.
 
